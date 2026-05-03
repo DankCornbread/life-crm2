@@ -26,9 +26,9 @@ const { useState, useEffect, createContext, useContext } = React;
 const G = `@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&display=swap'); *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;} :root{ --bg:#f5f0e8;--bg2:#ede7d9;--bg3:#e2d9c8;--line:#cfc5b0; --ink:#18150f;--ink2:#4a4035;--ink3:#8c7e6a; --gold:#9a7b3a;--gold2:#c4993e;--amber:#b8601a; --green:#3d5c3a;--red:#8b2a1a; --ff-display:'Cormorant Garamond',serif; --ff-body:'Libre Baskerville',serif; --ff-ui:'Barlow',sans-serif; } body{background:var(--bg);color:var(--ink);font-family:var(--ff-body);-webkit-font-smoothing:antialiased;} button{cursor:pointer;border:none;background:none;font-family:var(--ff-ui);} input,textarea,select{font-family:var(--ff-body);background:none;border:none;outline:none;color:var(--ink);} textarea{resize:none;} ::placeholder{color:var(--ink3);opacity:0.55;} select option{background:#f5f0e8;color:#18150f;}`;
 
 // ── SUPABASE ──
-const SB_URL = “https://szcqmlsqecdmctfmgygo.supabase.co”;
-const SB_KEY = “eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6Y3FtbHNxZWNkbWN0Zm1neWdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3MDI5MjQsImV4cCI6MjA5MjI3ODkyNH0.0vC7B0x3ijC_pbipRcRC9hNlcPekIDRVP92LMUb9pLs”;
-const SB_H = {“Content-Type”:“application/json”,“apikey”:SB_KEY,“Authorization”:`Bearer ${SB_KEY}`,“Prefer”:“resolution=merge-duplicates”};
+const SB_URL = "https://szcqmlsqecdmctfmgygo.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6Y3FtbHNxZWNkbWN0Zm1neWdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3MDI5MjQsImV4cCI6MjA5MjI3ODkyNH0.0vC7B0x3ijC_pbipRcRC9hNlcPekIDRVP92LMUb9pLs";
+const SB_H = {"Content-Type":"application/json","apikey":SB_KEY,"Authorization":`Bearer ${SB_KEY}`,"Prefer":"resolution=merge-duplicates"};
 const sbGet = async (key,fb) => {
 try{const r=await fetch(`${SB_URL}/rest/v1/crm_data?key=eq.${key}&select=value`,{headers:SB_H});const rows=await r.json();if(Array.isArray(rows)&&rows.length>0)return rows[0].value;}catch{}
 try{const v=localStorage.getItem(key);if(v)return JSON.parse(v);}catch{}
@@ -36,52 +36,52 @@ return fb;
 };
 const sbSet = async (key,val) => {
 try{localStorage.setItem(key,JSON.stringify(val));}catch{}
-try{await fetch(`${SB_URL}/rest/v1/crm_data`,{method:“POST”,headers:SB_H,body:JSON.stringify({id:key,key,value:val,updated_at:new Date().toISOString()})});}catch{}
+try{await fetch(`${SB_URL}/rest/v1/crm_data`,{method:"POST",headers:SB_H,body:JSON.stringify({id:key,key,value:val,updated_at:new Date().toISOString()})});}catch{}
 };
 
 // ── SEEDS ──
-const SEED_PEOPLE=[{id:“p1”,name:“Mom”,tier:“Inner”,lastContact:””,nextFollowUp:””,note:“Call weekly”},{id:“p2”,name:“Girlfriend”,tier:“Inner”,lastContact:””,nextFollowUp:””,note:””}];
-const SEED_GOALS=[{id:“g1”,area:“Faith”,title:“Rosary — consistent rhythm”,status:“Active”,note:””,plan:””},{id:“g2”,area:“Fitness”,title:“Sprint Triathlon — Jul 26”,status:“Active”,note:“Sub-8:30 swim · 24mph bike · 6:25/mi run”,plan:””},{id:“g3”,area:“Spanish”,title:“Conversational fluency”,status:“Active”,note:“30–45 min/day · Pingo + tutor”,plan:””},{id:“g4”,area:“Real Estate”,title:“Maximize Houston deal volume”,status:“Active”,note:””,plan:””}];
-const SEED_VISION=[{id:“v1”,area:“Faith”,text:“Rooted in the sacraments. Daily prayer a given. Ready to lead a family spiritually.”},{id:“v2”,area:“Fitness”,text:“Competing in longer triathlons. Lean and strong. Health as a long-term discipline.”},{id:“v3”,area:“Spanish”,text:“Fully conversational. Bilingual household for my family.”},{id:“v4”,area:“Real Estate”,text:“Flipping houses, hotel deals, owning and developing my own projects in Houston.”},{id:“v5”,area:“Relationships”,text:“Married. Building a family. The man they can count on.”}];
-const SEED_FAITH=[{id:“f1”,name:“Confession”,frequencyDays:45,lastDone:””,note:“Every 6 weeks”},{id:“f2”,name:“Adoration”,frequencyDays:7,lastDone:””,note:“Weekly”},{id:“f3”,name:“Rosary”,frequencyDays:3,lastDone:””,note:“Sun · Mon · Fri”},{id:“f4”,name:“Mass”,frequencyDays:7,lastDone:””,note:“Sunday”}];
+const SEED_PEOPLE=[{id:"p1",name:"Mom",tier:"Inner",lastContact:"",nextFollowUp:"",note:"Call weekly"},{id:"p2",name:"Girlfriend",tier:"Inner",lastContact:"",nextFollowUp:"",note:""}];
+const SEED_GOALS=[{id:"g1",area:"Faith",title:"Rosary — consistent rhythm",status:"Active",note:"",plan:""},{id:"g2",area:"Fitness",title:"Sprint Triathlon — Jul 26",status:"Active",note:"Sub-8:30 swim · 24mph bike · 6:25/mi run",plan:""},{id:"g3",area:"Spanish",title:"Conversational fluency",status:"Active",note:"30–45 min/day · Pingo + tutor",plan:""},{id:"g4",area:"Real Estate",title:"Maximize Houston deal volume",status:"Active",note:"",plan:""}];
+const SEED_VISION=[{id:"v1",area:"Faith",text:"Rooted in the sacraments. Daily prayer a given. Ready to lead a family spiritually."},{id:"v2",area:"Fitness",text:"Competing in longer triathlons. Lean and strong. Health as a long-term discipline."},{id:"v3",area:"Spanish",text:"Fully conversational. Bilingual household for my family."},{id:"v4",area:"Real Estate",text:"Flipping houses, hotel deals, owning and developing my own projects in Houston."},{id:"v5",area:"Relationships",text:"Married. Building a family. The man they can count on."}];
+const SEED_FAITH=[{id:"f1",name:"Confession",frequencyDays:45,lastDone:"",note:"Every 6 weeks"},{id:"f2",name:"Adoration",frequencyDays:7,lastDone:"",note:"Weekly"},{id:"f3",name:"Rosary",frequencyDays:3,lastDone:"",note:"Sun · Mon · Fri"},{id:"f4",name:"Mass",frequencyDays:7,lastDone:"",note:"Sunday"}];
 const SEED_TASKS=[],SEED_REVIEW=[],SEED_SOMEDAY=[];
 
 // ── CONSTANTS ──
-const TIERS=[“Inner”,“Close”,“Friend”,“Acquaintance”];
-const AREAS=[“Faith”,“Fitness”,“Spanish”,“Real Estate”,“Relationships”,“Other”];
-const STATUSES=[“Active”,“Someday”,“Done”];
-const TASK_CATS=[“Apartment”,“Clothes”,“Errands”,“Real Estate”,“Personal”,“Other”];
-const AREA_ACCENT={Faith:”#7a6535”,Fitness:”#3d5c3a”,Spanish:”#2e4a5c”,“Real Estate”:”#5c3a2e”,Relationships:”#4a3a5c”,Other:”#5c5040”};
-const FREQ_OPTS=[{label:“Daily”,days:1},{label:“2–3× / week”,days:3},{label:“Weekly”,days:7},{label:“Biweekly”,days:14},{label:“Monthly”,days:30},{label:“Every 6 weeks”,days:45},{label:“Every 2 months”,days:60}];
+const TIERS=["Inner","Close","Friend","Acquaintance"];
+const AREAS=["Faith","Fitness","Spanish","Real Estate","Relationships","Other"];
+const STATUSES=["Active","Someday","Done"];
+const TASK_CATS=["Apartment","Clothes","Errands","Real Estate","Personal","Other"];
+const AREA_ACCENT={Faith:"#7a6535",Fitness:"#3d5c3a",Spanish:"#2e4a5c","Real Estate":"#5c3a2e",Relationships:"#4a3a5c",Other:"#5c5040"};
+const FREQ_OPTS=[{label:"Daily",days:1},{label:"2–3× / week",days:3},{label:"Weekly",days:7},{label:"Biweekly",days:14},{label:"Monthly",days:30},{label:"Every 6 weeks",days:45},{label:"Every 2 months",days:60}];
 
 // ── HELPERS ──
 const today=()=>new Date().toISOString().slice(0,10);
-const fmt=(d)=>{if(!d)return”—”;const[y,m,dy]=d.split(”-”);return`${m}/${dy}/${y.slice(2)}`;};
-const daysAgo=(d)=>{if(!d)return null;return Math.floor((Date.now()-new Date(d+“T12:00:00”))/86400000);};
+const fmt=(d)=>{if(!d)return"—";const[y,m,dy]=d.split("-");return`${m}/${dy}/${y.slice(2)}`;};
+const daysAgo=(d)=>{if(!d)return null;return Math.floor((Date.now()-new Date(d+"T12:00:00"))/86400000);};
 const uid=()=>`${Date.now()}-${Math.random().toString(36).slice(2)}`;
-const U_COLOR={never:“var(–red)”,overdue:“var(–red)”,soon:“var(–amber)”,ok:“var(–green)”};
-const contactUrgency=(p)=>{const d=daysAgo(p.lastContact);if(d===null)return”never”;if(d>30)return”overdue”;if(d>14)return”soon”;return”ok”;};
-const contactLabel=(p)=>{const d=daysAgo(p.lastContact);if(d===null)return”Not yet reached”;if(d===0)return”Today”;if(d===1)return”Yesterday”;return`${d}d ago`;};
-const faithUrgency=(p)=>{const d=daysAgo(p.lastDone);if(d===null)return”never”;if(d>=Number(p.frequencyDays))return”overdue”;if(d>=Math.floor(Number(p.frequencyDays)*0.75))return”soon”;return”ok”;};
-const faithLabel=(p)=>{const d=daysAgo(p.lastDone);if(d===null)return”Not yet logged”;if(d===0)return”Done today”;if(d===1)return”Yesterday”;const rem=Number(p.frequencyDays)-d;if(rem<=0)return`${Math.abs(rem)}d overdue`;return`${rem}d remaining`;};
+const U_COLOR={never:"var(–red)",overdue:"var(–red)",soon:"var(–amber)",ok:"var(–green)"};
+const contactUrgency=(p)=>{const d=daysAgo(p.lastContact);if(d===null)return"never";if(d>30)return"overdue";if(d>14)return"soon";return"ok";};
+const contactLabel=(p)=>{const d=daysAgo(p.lastContact);if(d===null)return"Not yet reached";if(d===0)return"Today";if(d===1)return"Yesterday";return`${d}d ago`;};
+const faithUrgency=(p)=>{const d=daysAgo(p.lastDone);if(d===null)return"never";if(d>=Number(p.frequencyDays))return"overdue";if(d>=Math.floor(Number(p.frequencyDays)*0.75))return"soon";return"ok";};
+const faithLabel=(p)=>{const d=daysAgo(p.lastDone);if(d===null)return"Not yet logged";if(d===0)return"Done today";if(d===1)return"Yesterday";const rem=Number(p.frequencyDays)-d;if(rem<=0)return`${Math.abs(rem)}d overdue`;return`${rem}d remaining`;};
 
 // ── CONTEXT ──
 const SyncCtx=createContext(null);
 const useSync=()=>useContext(SyncCtx);
 
 // ── SHARED UI ──
-const Btn=({onClick,children})=><button onClick={onClick} style={{fontFamily:“var(–ff-ui)”,fontSize:11,fontWeight:500,letterSpacing:“0.06em”,color:“var(–ink2)”,background:“var(–bg2)”,border:“1px solid var(–line)”,padding:“6px 14px”}}>{children}</button>;
-const PrimaryBtn=({onClick,children})=><button onClick={onClick} style={{fontFamily:“var(–ff-ui)”,fontSize:11,fontWeight:600,letterSpacing:“0.1em”,textTransform:“uppercase”,color:“var(–bg)”,background:“var(–ink)”,padding:“8px 18px”}}>{children}</button>;
-const FieldInput=({value,onChange,placeholder,style={}})=><input value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder} style={{width:“100%”,fontSize:15,fontFamily:“var(–ff-body)”,color:“var(–ink)”,background:“transparent”,border:“none”,borderBottom:“1px solid var(–line)”,padding:“5px 0”,…style}}/>;
-const FieldArea=({value,onChange,placeholder,rows=3})=><textarea value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder} rows={rows} style={{width:“100%”,fontSize:14,fontFamily:“var(–ff-body)”,color:“var(–ink)”,background:“transparent”,border:“none”,borderBottom:“1px solid var(–line)”,padding:“5px 0”,lineHeight:1.65}}/>;
-const FieldSelect=({value,onChange,options})=><select value={value} onChange={e=>onChange(e.target.value)} style={{fontSize:11,fontFamily:“var(–ff-ui)”,fontWeight:500,color:“var(–ink2)”,background:“var(–bg2)”,border:“1px solid var(–line)”,padding:“5px 8px”}}>{options.map(o=>typeof o===“string”?<option key={o} value={o}>{o}</option>:<option key={o.days} value={o.days}>{o.label}</option>)}</select>;
-const SectionHeader=({title,subtitle,action})=><div style={{marginBottom:24}}><div style={{display:“flex”,justifyContent:“space-between”,alignItems:“baseline”}}><div style={{fontFamily:“var(–ff-display)”,fontSize:32,fontWeight:500,color:“var(–ink)”,letterSpacing:”-0.02em”,lineHeight:1}}>{title}</div>{action}</div>{subtitle&&<div style={{fontSize:11,fontFamily:“var(–ff-ui)”,fontWeight:300,color:“var(–ink3)”,letterSpacing:“0.07em”,marginTop:5}}>{subtitle}</div>}<div style={{height:2,background:“var(–ink)”,marginTop:12}}/></div>;
-const Card=({children,style={}})=><div style={{background:“var(–bg2)”,border:“1px solid var(–line)”,padding:“16px 18px”,…style}}>{children}</div>;
-const FieldLabel=({children})=><div style={{fontSize:9,fontFamily:“var(–ff-ui)”,fontWeight:600,letterSpacing:“0.18em”,textTransform:“uppercase”,color:“var(–ink3)”,marginBottom:4}}>{children}</div>;
-const GroupLabel=({children})=><div style={{fontSize:9,fontFamily:“var(–ff-ui)”,fontWeight:600,letterSpacing:“0.2em”,textTransform:“uppercase”,color:“var(–ink3)”,padding:“8px 0 6px”,borderBottom:“1px solid var(–line)”,marginBottom:2}}>{children}</div>;
-const Tag=({color,children})=><span style={{fontSize:9,fontFamily:“var(–ff-ui)”,fontWeight:600,letterSpacing:“0.12em”,textTransform:“uppercase”,color,border:`1px solid ${color}66`,padding:“2px 6px”,flexShrink:0}}>{children}</span>;
-const Monogram=({name})=>{const i=name.trim().split(” “).map(w=>w[0]).join(””).slice(0,2).toUpperCase();return<div style={{width:40,height:40,background:“var(–ink)”,display:“flex”,alignItems:“center”,justifyContent:“center”,fontFamily:“var(–ff-display)”,fontSize:15,fontWeight:500,color:“var(–bg)”,flexShrink:0,letterSpacing:“0.04em”}}>{i}</div>;};
-const Empty=({text})=><div style={{padding:“40px 0”,textAlign:“center”,fontFamily:“var(–ff-display)”,fontSize:18,fontStyle:“italic”,color:“var(–ink3)”}}>{text}</div>;
+const Btn=({onClick,children})=><button onClick={onClick} style={{fontFamily:"var(–ff-ui)",fontSize:11,fontWeight:500,letterSpacing:"0.06em",color:"var(–ink2)",background:"var(–bg2)",border:"1px solid var(–line)",padding:"6px 14px"}}>{children}</button>;
+const PrimaryBtn=({onClick,children})=><button onClick={onClick} style={{fontFamily:"var(–ff-ui)",fontSize:11,fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",color:"var(–bg)",background:"var(–ink)",padding:"8px 18px"}}>{children}</button>;
+const FieldInput=({value,onChange,placeholder,style={}})=><input value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder} style={{width:"100%",fontSize:15,fontFamily:"var(–ff-body)",color:"var(–ink)",background:"transparent",border:"none",borderBottom:"1px solid var(–line)",padding:"5px 0",…style}}/>;
+const FieldArea=({value,onChange,placeholder,rows=3})=><textarea value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder} rows={rows} style={{width:"100%",fontSize:14,fontFamily:"var(–ff-body)",color:"var(–ink)",background:"transparent",border:"none",borderBottom:"1px solid var(–line)",padding:"5px 0",lineHeight:1.65}}/>;
+const FieldSelect=({value,onChange,options})=><select value={value} onChange={e=>onChange(e.target.value)} style={{fontSize:11,fontFamily:"var(–ff-ui)",fontWeight:500,color:"var(–ink2)",background:"var(–bg2)",border:"1px solid var(–line)",padding:"5px 8px"}}>{options.map(o=>typeof o==="string"?<option key={o} value={o}>{o}</option>:<option key={o.days} value={o.days}>{o.label}</option>)}</select>;
+const SectionHeader=({title,subtitle,action})=><div style={{marginBottom:24}}><div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline"}}><div style={{fontFamily:"var(–ff-display)",fontSize:32,fontWeight:500,color:"var(–ink)",letterSpacing:"-0.02em",lineHeight:1}}>{title}</div>{action}</div>{subtitle&&<div style={{fontSize:11,fontFamily:"var(–ff-ui)",fontWeight:300,color:"var(–ink3)",letterSpacing:"0.07em",marginTop:5}}>{subtitle}</div>}<div style={{height:2,background:"var(–ink)",marginTop:12}}/></div>;
+const Card=({children,style={}})=><div style={{background:"var(–bg2)",border:"1px solid var(–line)",padding:"16px 18px",…style}}>{children}</div>;
+const FieldLabel=({children})=><div style={{fontSize:9,fontFamily:"var(–ff-ui)",fontWeight:600,letterSpacing:"0.18em",textTransform:"uppercase",color:"var(–ink3)",marginBottom:4}}>{children}</div>;
+const GroupLabel=({children})=><div style={{fontSize:9,fontFamily:"var(–ff-ui)",fontWeight:600,letterSpacing:"0.2em",textTransform:"uppercase",color:"var(–ink3)",padding:"8px 0 6px",borderBottom:"1px solid var(–line)",marginBottom:2}}>{children}</div>;
+const Tag=({color,children})=><span style={{fontSize:9,fontFamily:"var(–ff-ui)",fontWeight:600,letterSpacing:"0.12em",textTransform:"uppercase",color,border:`1px solid ${color}66`,padding:"2px 6px",flexShrink:0}}>{children}</span>;
+const Monogram=({name})=>{const i=name.trim().split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();return<div style={{width:40,height:40,background:"var(–ink)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"var(–ff-display)",fontSize:15,fontWeight:500,color:"var(–bg)",flexShrink:0,letterSpacing:"0.04em"}}>{i}</div>;};
+const Empty=({text})=><div style={{padding:"40px 0",textAlign:"center",fontFamily:"var(–ff-display)",fontSize:18,fontStyle:"italic",color:"var(–ink3)"}}>{text}</div>;
 
 // ── PEOPLE ──
 function PeopleSection(){
@@ -89,17 +89,17 @@ const {data,setSynced}=useSync();
 const [people,setPeople]=useState(data.people);
 const [open,setOpen]=useState(null);
 const [adding,setAdding]=useState(false);
-const [draft,setDraft]=useState({name:””,tier:“Close”,lastContact:””,nextFollowUp:””,note:””});
-useEffect(()=>{setSynced(“crm_people”,people);},[people]);
+const [draft,setDraft]=useState({name:"",tier:"Close",lastContact:"",nextFollowUp:"",note:""});
+useEffect(()=>{setSynced("crm_people",people);},[people]);
 const upd=(id,f,v)=>setPeople(pp=>pp.map(x=>x.id===id?{…x,[f]:v}:x));
 const del=(id)=>{setPeople(pp=>pp.filter(x=>x.id!==id));setOpen(null);};
-const add=()=>{if(!draft.name.trim())return;setPeople(pp=>[…pp,{…draft,id:uid()}]);setDraft({name:””,tier:“Close”,lastContact:””,nextFollowUp:””,note:””});setAdding(false);};
+const add=()=>{if(!draft.name.trim())return;setPeople(pp=>[…pp,{…draft,id:uid()}]);setDraft({name:"",tier:"Close",lastContact:"",nextFollowUp:"",note:""});setAdding(false);};
 const sorted=[…people].sort((a,b)=>{const ti=TIERS.indexOf(a.tier)-TIERS.indexOf(b.tier);if(ti!==0)return ti;return(daysAgo(a.lastContact)??9999)-(daysAgo(b.lastContact)??9999);});
 return(
 <div>
-<SectionHeader title=“People” subtitle=“Your circle · who to nurture” action={<Btn onClick={()=>setAdding(a=>!a)}>+ Add Person</Btn>}/>
-{adding&&<Card style={{marginBottom:20}}><FieldLabel>New Person</FieldLabel><FieldInput value={draft.name} onChange={v=>setDraft(d=>({…d,name:v}))} placeholder=“Full name” style={{marginBottom:12}}/><div style={{display:“flex”,gap:10,alignItems:“center”,marginBottom:12}}><FieldLabel>Tier</FieldLabel><FieldSelect value={draft.tier} onChange={v=>setDraft(d=>({…d,tier:v}))} options={TIERS}/></div><FieldInput value={draft.note} onChange={v=>setDraft(d=>({…d,note:v}))} placeholder=“One note about them” style={{marginBottom:16}}/><div style={{display:“flex”,gap:8}}><PrimaryBtn onClick={add}>Save</PrimaryBtn><Btn onClick={()=>setAdding(false)}>Cancel</Btn></div></Card>}
-{TIERS.map(tier=>{const grp=sorted.filter(p=>p.tier===tier);if(!grp.length)return null;return(<div key={tier} style={{marginBottom:24}}><GroupLabel>{tier}</GroupLabel>{grp.map(p=>(<div key={p.id}><div onClick={()=>setOpen(open===p.id?null:p.id)} style={{display:“flex”,alignItems:“center”,gap:14,padding:“12px 0”,borderBottom:“1px solid var(–line)”,cursor:“pointer”}}><Monogram name={p.name}/><div style={{flex:1,minWidth:0}}><div style={{fontFamily:“var(–ff-display)”,fontSize:19,fontWeight:500,color:“var(–ink)”,lineHeight:1.1}}>{p.name}</div>{p.note&&<div style={{fontSize:12,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”,marginTop:2,fontWeight:300}}>{p.note}</div>}</div><div style={{textAlign:“right”,flexShrink:0}}><div style={{fontSize:11,fontFamily:“var(–ff-ui)”,fontWeight:600,color:U_COLOR[contactUrgency(p)]}}>{contactLabel(p)}</div>{p.nextFollowUp&&<div style={{fontSize:10,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”,marginTop:1}}>Follow up {fmt(p.nextFollowUp)}</div>}</div></div>{open===p.id&&<Card style={{margin:“8px 0 16px”}}><div style={{display:“grid”,gridTemplateColumns:“1fr 1fr”,gap:16,marginBottom:14}}><div><FieldLabel>Last Contact</FieldLabel><input type=“date” value={p.lastContact} onChange={e=>upd(p.id,“lastContact”,e.target.value)} style={{fontSize:13,fontFamily:“var(–ff-ui)”,color:“var(–ink)”,background:“transparent”,border:“none”,borderBottom:“1px solid var(–line)”,outline:“none”,width:“100%”,padding:“4px 0”}}/></div><div><FieldLabel>Next Follow-up</FieldLabel><input type=“date” value={p.nextFollowUp} onChange={e=>upd(p.id,“nextFollowUp”,e.target.value)} style={{fontSize:13,fontFamily:“var(–ff-ui)”,color:“var(–ink)”,background:“transparent”,border:“none”,borderBottom:“1px solid var(–line)”,outline:“none”,width:“100%”,padding:“4px 0”}}/></div></div><div style={{marginBottom:14}}><FieldLabel>Note</FieldLabel><FieldArea value={p.note} onChange={v=>upd(p.id,“note”,v)} placeholder=“What matters to them, last conversation, prayers…” rows={2}/></div><div style={{display:“flex”,gap:8,alignItems:“center”,flexWrap:“wrap”}}><PrimaryBtn onClick={()=>{upd(p.id,“lastContact”,today());setOpen(null);}}>✓ Contacted Today</PrimaryBtn><FieldSelect value={p.tier} onChange={v=>upd(p.id,“tier”,v)} options={TIERS}/><button onClick={()=>del(p.id)} style={{marginLeft:“auto”,fontSize:11,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”,background:“none”,border:“none”,cursor:“pointer”}}>Remove</button></div></Card>}</div>))}</div>);})}
+<SectionHeader title="People" subtitle="Your circle · who to nurture" action={<Btn onClick={()=>setAdding(a=>!a)}>+ Add Person</Btn>}/>
+{adding&&<Card style={{marginBottom:20}}><FieldLabel>New Person</FieldLabel><FieldInput value={draft.name} onChange={v=>setDraft(d=>({…d,name:v}))} placeholder="Full name" style={{marginBottom:12}}/><div style={{display:"flex",gap:10,alignItems:"center",marginBottom:12}}><FieldLabel>Tier</FieldLabel><FieldSelect value={draft.tier} onChange={v=>setDraft(d=>({…d,tier:v}))} options={TIERS}/></div><FieldInput value={draft.note} onChange={v=>setDraft(d=>({…d,note:v}))} placeholder="One note about them" style={{marginBottom:16}}/><div style={{display:"flex",gap:8}}><PrimaryBtn onClick={add}>Save</PrimaryBtn><Btn onClick={()=>setAdding(false)}>Cancel</Btn></div></Card>}
+{TIERS.map(tier=>{const grp=sorted.filter(p=>p.tier===tier);if(!grp.length)return null;return(<div key={tier} style={{marginBottom:24}}><GroupLabel>{tier}</GroupLabel>{grp.map(p=>(<div key={p.id}><div onClick={()=>setOpen(open===p.id?null:p.id)} style={{display:"flex",alignItems:"center",gap:14,padding:"12px 0",borderBottom:"1px solid var(–line)",cursor:"pointer"}}><Monogram name={p.name}/><div style={{flex:1,minWidth:0}}><div style={{fontFamily:"var(–ff-display)",fontSize:19,fontWeight:500,color:"var(–ink)",lineHeight:1.1}}>{p.name}</div>{p.note&&<div style={{fontSize:12,fontFamily:"var(–ff-ui)",color:"var(–ink3)",marginTop:2,fontWeight:300}}>{p.note}</div>}</div><div style={{textAlign:"right",flexShrink:0}}><div style={{fontSize:11,fontFamily:"var(–ff-ui)",fontWeight:600,color:U_COLOR[contactUrgency(p)]}}>{contactLabel(p)}</div>{p.nextFollowUp&&<div style={{fontSize:10,fontFamily:"var(–ff-ui)",color:"var(–ink3)",marginTop:1}}>Follow up {fmt(p.nextFollowUp)}</div>}</div></div>{open===p.id&&<Card style={{margin:"8px 0 16px"}}><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginBottom:14}}><div><FieldLabel>Last Contact</FieldLabel><input type="date" value={p.lastContact} onChange={e=>upd(p.id,"lastContact",e.target.value)} style={{fontSize:13,fontFamily:"var(–ff-ui)",color:"var(–ink)",background:"transparent",border:"none",borderBottom:"1px solid var(–line)",outline:"none",width:"100%",padding:"4px 0"}}/></div><div><FieldLabel>Next Follow-up</FieldLabel><input type="date" value={p.nextFollowUp} onChange={e=>upd(p.id,"nextFollowUp",e.target.value)} style={{fontSize:13,fontFamily:"var(–ff-ui)",color:"var(–ink)",background:"transparent",border:"none",borderBottom:"1px solid var(–line)",outline:"none",width:"100%",padding:"4px 0"}}/></div></div><div style={{marginBottom:14}}><FieldLabel>Note</FieldLabel><FieldArea value={p.note} onChange={v=>upd(p.id,"note",v)} placeholder="What matters to them, last conversation, prayers…" rows={2}/></div><div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}><PrimaryBtn onClick={()=>{upd(p.id,"lastContact",today());setOpen(null);}}>✓ Contacted Today</PrimaryBtn><FieldSelect value={p.tier} onChange={v=>upd(p.id,"tier",v)} options={TIERS}/><button onClick={()=>del(p.id)} style={{marginLeft:"auto",fontSize:11,fontFamily:"var(–ff-ui)",color:"var(–ink3)",background:"none",border:"none",cursor:"pointer"}}>Remove</button></div></Card>}</div>))}</div>);})}
 {people.length===0&&<Empty text="Add your first person."/>}
 </div>
 );
@@ -108,31 +108,31 @@ return(
 // ── GOALS ──
 function GoalsSection(){
 const {data,setSynced}=useSync();
-const [subtab,setSubtab]=useState(“active”);
+const [subtab,setSubtab]=useState("active");
 const [goals,setGoals]=useState(data.goals);
 const [vision,setVision]=useState(data.vision);
 const [open,setOpen]=useState(null);
 const [planOpen,setPlanOpen]=useState(null);
 const [adding,setAdding]=useState(false);
-const [draft,setDraft]=useState({area:“Faith”,title:””,status:“Active”,note:””,plan:””});
-useEffect(()=>{setSynced(“crm_goals”,goals);},[goals]);
-useEffect(()=>{setSynced(“crm_vision”,vision);},[vision]);
+const [draft,setDraft]=useState({area:"Faith",title:"",status:"Active",note:"",plan:""});
+useEffect(()=>{setSynced("crm_goals",goals);},[goals]);
+useEffect(()=>{setSynced("crm_vision",vision);},[vision]);
 const upd=(id,f,v)=>setGoals(gg=>gg.map(x=>x.id===id?{…x,[f]:v}:x));
 const del=(id)=>{setGoals(gg=>gg.filter(x=>x.id!==id));setOpen(null);};
-const add=()=>{if(!draft.title.trim())return;setGoals(gg=>[…gg,{…draft,id:uid()}]);setDraft({area:“Faith”,title:””,status:“Active”,note:””,plan:””});setAdding(false);};
+const add=()=>{if(!draft.title.trim())return;setGoals(gg=>[…gg,{…draft,id:uid()}]);setDraft({area:"Faith",title:"",status:"Active",note:"",plan:""});setAdding(false);};
 const updV=(id,f,v)=>setVision(vv=>vv.map(x=>x.id===id?{…x,[f]:v}:x));
 const delV=(id)=>setVision(vv=>vv.filter(x=>x.id!==id));
-const addV=()=>setVision(vv=>[…vv,{id:uid(),area:“Other”,text:””}]);
-const GoalRow=({g})=>(<div><div onClick={()=>{setOpen(open===g.id?null:g.id);setPlanOpen(null);}} style={{display:“flex”,alignItems:“center”,gap:14,padding:“12px 0”,borderBottom:“1px solid var(–line)”,cursor:“pointer”}}><div style={{width:3,alignSelf:“stretch”,background:AREA_ACCENT[g.area]||”#888”,flexShrink:0,minHeight:36}}/><div style={{flex:1,minWidth:0}}><div style={{fontFamily:“var(–ff-display)”,fontSize:19,fontWeight:500,color:g.status===“Done”?“var(–ink3)”:“var(–ink)”,textDecoration:g.status===“Done”?“line-through”:“none”,lineHeight:1.15}}>{g.title}</div>{g.note&&<div style={{fontSize:12,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”,marginTop:2,fontWeight:300}}>{g.note}</div>}</div><div style={{display:“flex”,alignItems:“center”,gap:8,flexShrink:0}}>{g.plan&&<span style={{fontSize:9,fontFamily:“var(–ff-ui)”,fontWeight:600,letterSpacing:“0.1em”,color:“var(–gold)”,border:“1px solid var(–gold)55”,padding:“2px 5px”}}>PLAN</span>}<Tag color={AREA_ACCENT[g.area]||”#888”}>{g.area}</Tag></div></div>{open===g.id&&<Card style={{margin:“8px 0 16px”}}><div style={{marginBottom:12}}><FieldLabel>Goal</FieldLabel><FieldInput value={g.title} onChange={v=>upd(g.id,“title”,v)} placeholder=“Goal title”/></div><div style={{marginBottom:14}}><FieldLabel>Notes</FieldLabel><FieldArea value={g.note} onChange={v=>upd(g.id,“note”,v)} placeholder=“Context, milestones, metrics…” rows={2}/></div><div style={{marginBottom:14}}><div style={{display:“flex”,alignItems:“center”,justifyContent:“space-between”,marginBottom:6}}><FieldLabel>Plan</FieldLabel><button onClick={()=>setPlanOpen(p=>p===g.id?null:g.id)} style={{fontSize:10,fontFamily:“var(–ff-ui)”,fontWeight:600,letterSpacing:“0.1em”,textTransform:“uppercase”,color:“var(–gold)”,background:“none”,border:“none”,cursor:“pointer”}}>{planOpen===g.id?“▲ Collapse”:g.plan?“▼ Edit Plan”:“▼ Write Plan”}</button></div>{planOpen===g.id?<textarea value={g.plan||””} onChange={e=>upd(g.id,“plan”,e.target.value)} placeholder={“Write your plan, approach, steps, or strategy…\n\nTwo sentences or two pages — your call.”} rows={8} style={{width:“100%”,fontSize:14,fontFamily:“var(–ff-body)”,color:“var(–ink)”,background:“var(–bg)”,border:“1px solid var(–line)”,padding:“12px 14px”,lineHeight:1.75,resize:“vertical”,outline:“none”}}/>:g.plan?<div style={{fontSize:13,fontFamily:“var(–ff-body)”,color:“var(–ink2)”,lineHeight:1.65,background:“var(–bg)”,border:“1px solid var(–line)”,padding:“10px 14px”,whiteSpace:“pre-wrap”}}>{g.plan.length>180?g.plan.slice(0,180)+”…”:g.plan}</div>:<div style={{fontSize:13,fontFamily:“var(–ff-display)”,fontStyle:“italic”,color:“var(–ink3)”}}>No plan written yet.</div>}</div><div style={{display:“flex”,gap:8,alignItems:“center”,flexWrap:“wrap”}}><FieldSelect value={g.area} onChange={v=>upd(g.id,“area”,v)} options={AREAS}/><FieldSelect value={g.status} onChange={v=>upd(g.id,“status”,v)} options={STATUSES}/><button onClick={()=>del(g.id)} style={{marginLeft:“auto”,fontSize:11,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”,background:“none”,border:“none”,cursor:“pointer”}}>Remove</button></div></Card>}</div>);
-const active=goals.filter(g=>g.status===“Active”),someday=goals.filter(g=>g.status===“Someday”),done=goals.filter(g=>g.status===“Done”);
+const addV=()=>setVision(vv=>[…vv,{id:uid(),area:"Other",text:""}]);
+const GoalRow=({g})=>(<div><div onClick={()=>{setOpen(open===g.id?null:g.id);setPlanOpen(null);}} style={{display:"flex",alignItems:"center",gap:14,padding:"12px 0",borderBottom:"1px solid var(–line)",cursor:"pointer"}}><div style={{width:3,alignSelf:"stretch",background:AREA_ACCENT[g.area]||"#888",flexShrink:0,minHeight:36}}/><div style={{flex:1,minWidth:0}}><div style={{fontFamily:"var(–ff-display)",fontSize:19,fontWeight:500,color:g.status==="Done"?"var(–ink3)":"var(–ink)",textDecoration:g.status==="Done"?"line-through":"none",lineHeight:1.15}}>{g.title}</div>{g.note&&<div style={{fontSize:12,fontFamily:"var(–ff-ui)",color:"var(–ink3)",marginTop:2,fontWeight:300}}>{g.note}</div>}</div><div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>{g.plan&&<span style={{fontSize:9,fontFamily:"var(–ff-ui)",fontWeight:600,letterSpacing:"0.1em",color:"var(–gold)",border:"1px solid var(–gold)55",padding:"2px 5px"}}>PLAN</span>}<Tag color={AREA_ACCENT[g.area]||"#888"}>{g.area}</Tag></div></div>{open===g.id&&<Card style={{margin:"8px 0 16px"}}><div style={{marginBottom:12}}><FieldLabel>Goal</FieldLabel><FieldInput value={g.title} onChange={v=>upd(g.id,"title",v)} placeholder="Goal title"/></div><div style={{marginBottom:14}}><FieldLabel>Notes</FieldLabel><FieldArea value={g.note} onChange={v=>upd(g.id,"note",v)} placeholder="Context, milestones, metrics…" rows={2}/></div><div style={{marginBottom:14}}><div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:6}}><FieldLabel>Plan</FieldLabel><button onClick={()=>setPlanOpen(p=>p===g.id?null:g.id)} style={{fontSize:10,fontFamily:"var(–ff-ui)",fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",color:"var(–gold)",background:"none",border:"none",cursor:"pointer"}}>{planOpen===g.id?"▲ Collapse":g.plan?"▼ Edit Plan":"▼ Write Plan"}</button></div>{planOpen===g.id?<textarea value={g.plan||""} onChange={e=>upd(g.id,"plan",e.target.value)} placeholder={"Write your plan, approach, steps, or strategy…\n\nTwo sentences or two pages — your call."} rows={8} style={{width:"100%",fontSize:14,fontFamily:"var(–ff-body)",color:"var(–ink)",background:"var(–bg)",border:"1px solid var(–line)",padding:"12px 14px",lineHeight:1.75,resize:"vertical",outline:"none"}}/>:g.plan?<div style={{fontSize:13,fontFamily:"var(–ff-body)",color:"var(–ink2)",lineHeight:1.65,background:"var(–bg)",border:"1px solid var(–line)",padding:"10px 14px",whiteSpace:"pre-wrap"}}>{g.plan.length>180?g.plan.slice(0,180)+"…":g.plan}</div>:<div style={{fontSize:13,fontFamily:"var(–ff-display)",fontStyle:"italic",color:"var(–ink3)"}}>No plan written yet.</div>}</div><div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}><FieldSelect value={g.area} onChange={v=>upd(g.id,"area",v)} options={AREAS}/><FieldSelect value={g.status} onChange={v=>upd(g.id,"status",v)} options={STATUSES}/><button onClick={()=>del(g.id)} style={{marginLeft:"auto",fontSize:11,fontFamily:"var(–ff-ui)",color:"var(–ink3)",background:"none",border:"none",cursor:"pointer"}}>Remove</button></div></Card>}</div>);
+const active=goals.filter(g=>g.status==="Active"),someday=goals.filter(g=>g.status==="Someday"),done=goals.filter(g=>g.status==="Done");
 return(
 <div>
-<SectionHeader title=“Goals” subtitle=“What you’re building toward” action={subtab===“active”?<Btn onClick={()=>setAdding(a=>!a)}>+ Add Goal</Btn>:<Btn onClick={addV}>+ Add Area</Btn>}/>
-<div style={{display:“flex”,marginBottom:24,borderBottom:“1px solid var(–line)”}}>
-{[[“active”,“Active Goals”],[“vision”,“5-Year Vision”]].map(([id,label])=><button key={id} onClick={()=>{setSubtab(id);setAdding(false);}} style={{fontFamily:“var(–ff-ui)”,fontSize:11,fontWeight:subtab===id?600:400,letterSpacing:“0.1em”,textTransform:“uppercase”,color:subtab===id?“var(–ink)”:“var(–ink3)”,background:“none”,border:“none”,borderBottom:subtab===id?“2px solid var(–gold)”:“2px solid transparent”,padding:“8px 16px 10px”,marginBottom:-1,cursor:“pointer”}}>{label}</button>)}
+<SectionHeader title="Goals" subtitle="What you're building toward" action={subtab==="active"?<Btn onClick={()=>setAdding(a=>!a)}>+ Add Goal</Btn>:<Btn onClick={addV}>+ Add Area</Btn>}/>
+<div style={{display:"flex",marginBottom:24,borderBottom:"1px solid var(–line)"}}>
+{[["active","Active Goals"],["vision","5-Year Vision"]].map(([id,label])=><button key={id} onClick={()=>{setSubtab(id);setAdding(false);}} style={{fontFamily:"var(–ff-ui)",fontSize:11,fontWeight:subtab===id?600:400,letterSpacing:"0.1em",textTransform:"uppercase",color:subtab===id?"var(–ink)":"var(–ink3)",background:"none",border:"none",borderBottom:subtab===id?"2px solid var(–gold)":"2px solid transparent",padding:"8px 16px 10px",marginBottom:-1,cursor:"pointer"}}>{label}</button>)}
 </div>
-{subtab===“active”&&<div>{adding&&<Card style={{marginBottom:20}}><FieldLabel>New Goal</FieldLabel><FieldInput value={draft.title} onChange={v=>setDraft(d=>({…d,title:v}))} placeholder=“Goal title” style={{marginBottom:12}}/><FieldArea value={draft.note} onChange={v=>setDraft(d=>({…d,note:v}))} placeholder=“Notes or context…” rows={2}/><div style={{display:“flex”,gap:8,marginTop:14,flexWrap:“wrap”}}><FieldSelect value={draft.area} onChange={v=>setDraft(d=>({…d,area:v}))} options={AREAS}/><FieldSelect value={draft.status} onChange={v=>setDraft(d=>({…d,status:v}))} options={STATUSES}/></div><div style={{display:“flex”,gap:8,marginTop:14}}><PrimaryBtn onClick={add}>Save</PrimaryBtn><Btn onClick={()=>setAdding(false)}>Cancel</Btn></div></Card>}{active.length>0&&<div style={{marginBottom:24}}><GroupLabel>Active</GroupLabel>{active.map(g=><GoalRow key={g.id} g={g}/>)}</div>}{someday.length>0&&<div style={{marginBottom:24}}><GroupLabel>Someday</GroupLabel>{someday.map(g=><GoalRow key={g.id} g={g}/>)}</div>}{done.length>0&&<div><GroupLabel>Done</GroupLabel>{done.map(g=><GoalRow key={g.id} g={g}/>)}</div>}{goals.length===0&&<Empty text="No goals yet."/>}</div>}
-{subtab===“vision”&&<div><div style={{fontFamily:“var(–ff-display)”,fontSize:14,fontStyle:“italic”,color:“var(–ink3)”,marginBottom:20,lineHeight:1.6,borderLeft:“2px solid var(–gold)”,paddingLeft:14}}>Where are you in five years? Write it plainly — not as tasks, but as truth.</div>{vision.map(v=><div key={v.id} style={{marginBottom:20}}><div style={{display:“flex”,alignItems:“center”,gap:10,marginBottom:8}}><div style={{width:10,height:10,background:AREA_ACCENT[v.area]||”#888”,flexShrink:0}}/><FieldSelect value={v.area} onChange={val=>updV(v.id,“area”,val)} options={AREAS}/><button onClick={()=>delV(v.id)} style={{marginLeft:“auto”,fontSize:11,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”,background:“none”,border:“none”,cursor:“pointer”}}>Remove</button></div><textarea value={v.text} onChange={e=>updV(v.id,“text”,e.target.value)} placeholder=“Write your 5-year vision for this area…” rows={3} style={{width:“100%”,fontSize:15,fontFamily:“var(–ff-display)”,fontWeight:400,color:“var(–ink)”,background:“var(–bg2)”,border:“1px solid var(–line)”,padding:“12px 14px”,lineHeight:1.7,resize:“none”,outline:“none”}}/></div>)}{vision.length===0&&<Empty text="Add your first area."/>}</div>}
+{subtab==="active"&&<div>{adding&&<Card style={{marginBottom:20}}><FieldLabel>New Goal</FieldLabel><FieldInput value={draft.title} onChange={v=>setDraft(d=>({…d,title:v}))} placeholder="Goal title" style={{marginBottom:12}}/><FieldArea value={draft.note} onChange={v=>setDraft(d=>({…d,note:v}))} placeholder="Notes or context…" rows={2}/><div style={{display:"flex",gap:8,marginTop:14,flexWrap:"wrap"}}><FieldSelect value={draft.area} onChange={v=>setDraft(d=>({…d,area:v}))} options={AREAS}/><FieldSelect value={draft.status} onChange={v=>setDraft(d=>({…d,status:v}))} options={STATUSES}/></div><div style={{display:"flex",gap:8,marginTop:14}}><PrimaryBtn onClick={add}>Save</PrimaryBtn><Btn onClick={()=>setAdding(false)}>Cancel</Btn></div></Card>}{active.length>0&&<div style={{marginBottom:24}}><GroupLabel>Active</GroupLabel>{active.map(g=><GoalRow key={g.id} g={g}/>)}</div>}{someday.length>0&&<div style={{marginBottom:24}}><GroupLabel>Someday</GroupLabel>{someday.map(g=><GoalRow key={g.id} g={g}/>)}</div>}{done.length>0&&<div><GroupLabel>Done</GroupLabel>{done.map(g=><GoalRow key={g.id} g={g}/>)}</div>}{goals.length===0&&<Empty text="No goals yet."/>}</div>}
+{subtab==="vision"&&<div><div style={{fontFamily:"var(–ff-display)",fontSize:14,fontStyle:"italic",color:"var(–ink3)",marginBottom:20,lineHeight:1.6,borderLeft:"2px solid var(–gold)",paddingLeft:14}}>Where are you in five years? Write it plainly — not as tasks, but as truth.</div>{vision.map(v=><div key={v.id} style={{marginBottom:20}}><div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}><div style={{width:10,height:10,background:AREA_ACCENT[v.area]||"#888",flexShrink:0}}/><FieldSelect value={v.area} onChange={val=>updV(v.id,"area",val)} options={AREAS}/><button onClick={()=>delV(v.id)} style={{marginLeft:"auto",fontSize:11,fontFamily:"var(–ff-ui)",color:"var(–ink3)",background:"none",border:"none",cursor:"pointer"}}>Remove</button></div><textarea value={v.text} onChange={e=>updV(v.id,"text",e.target.value)} placeholder="Write your 5-year vision for this area…" rows={3} style={{width:"100%",fontSize:15,fontFamily:"var(–ff-display)",fontWeight:400,color:"var(–ink)",background:"var(–bg2)",border:"1px solid var(–line)",padding:"12px 14px",lineHeight:1.7,resize:"none",outline:"none"}}/></div>)}{vision.length===0&&<Empty text="Add your first area."/>}</div>}
 </div>
 );
 }
@@ -143,18 +143,18 @@ const {data,setSynced}=useSync();
 const [practices,setPractices]=useState(data.faith);
 const [open,setOpen]=useState(null);
 const [adding,setAdding]=useState(false);
-const [draft,setDraft]=useState({name:””,frequencyDays:7,lastDone:””,note:””});
-useEffect(()=>{setSynced(“crm_faith”,practices);},[practices]);
+const [draft,setDraft]=useState({name:"",frequencyDays:7,lastDone:"",note:""});
+useEffect(()=>{setSynced("crm_faith",practices);},[practices]);
 const upd=(id,f,v)=>setPractices(pp=>pp.map(x=>x.id===id?{…x,[f]:v}:x));
 const del=(id)=>{setPractices(pp=>pp.filter(x=>x.id!==id));setOpen(null);};
-const add=()=>{if(!draft.name.trim())return;setPractices(pp=>[…pp,{…draft,id:uid()}]);setDraft({name:””,frequencyDays:7,lastDone:””,note:””});setAdding(false);};
+const add=()=>{if(!draft.name.trim())return;setPractices(pp=>[…pp,{…draft,id:uid()}]);setDraft({name:"",frequencyDays:7,lastDone:"",note:""});setAdding(false);};
 const freqLabel=(days)=>FREQ_OPTS.find(f=>f.days===Number(days))?.label||`Every ${days}d`;
 const sorted=[…practices].sort((a,b)=>{const o={never:0,overdue:1,soon:2,ok:3};return o[faithUrgency(a)]-o[faithUrgency(b)];});
 return(
 <div>
-<SectionHeader title=“Faith” subtitle=“Spiritual practices · your rhythm” action={<Btn onClick={()=>setAdding(a=>!a)}>+ Add</Btn>}/>
-{adding&&<Card style={{marginBottom:20}}><FieldLabel>New Practice</FieldLabel><FieldInput value={draft.name} onChange={v=>setDraft(d=>({…d,name:v}))} placeholder=“e.g. Lectio Divina” style={{marginBottom:12}}/><FieldInput value={draft.note} onChange={v=>setDraft(d=>({…d,note:v}))} placeholder=“Short description” style={{marginBottom:14}}/><div style={{display:“flex”,gap:8,alignItems:“center”,marginBottom:16}}><FieldLabel>Frequency</FieldLabel><FieldSelect value={draft.frequencyDays} onChange={v=>setDraft(d=>({…d,frequencyDays:Number(v)}))} options={FREQ_OPTS}/></div><div style={{display:“flex”,gap:8}}><PrimaryBtn onClick={add}>Save</PrimaryBtn><Btn onClick={()=>setAdding(false)}>Cancel</Btn></div></Card>}
-{sorted.map(p=>{const urg=faithUrgency(p);return(<div key={p.id}><div onClick={()=>setOpen(open===p.id?null:p.id)} style={{display:“flex”,alignItems:“center”,gap:14,padding:“12px 0”,borderBottom:“1px solid var(–line)”,cursor:“pointer”}}><div style={{width:3,alignSelf:“stretch”,background:U_COLOR[urg],flexShrink:0,minHeight:40}}/><div style={{flex:1,minWidth:0}}><div style={{fontFamily:“var(–ff-display)”,fontSize:19,fontWeight:500,color:“var(–ink)”,lineHeight:1.1}}>{p.name}</div><div style={{fontSize:12,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”,marginTop:2,fontWeight:300}}>{freqLabel(p.frequencyDays)}{p.note?` · ${p.note}`:””}</div></div><div style={{textAlign:“right”,flexShrink:0}}><div style={{fontSize:11,fontFamily:“var(–ff-ui)”,fontWeight:600,color:U_COLOR[urg]}}>{faithLabel(p)}</div>{p.lastDone&&<div style={{fontSize:10,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”,marginTop:1}}>Last {fmt(p.lastDone)}</div>}</div></div>{open===p.id&&<Card style={{margin:“8px 0 16px”}}><div style={{marginBottom:12}}><FieldLabel>Practice</FieldLabel><FieldInput value={p.name} onChange={v=>upd(p.id,“name”,v)} placeholder=“Name”/></div><div style={{marginBottom:12}}><FieldLabel>Note</FieldLabel><FieldInput value={p.note} onChange={v=>upd(p.id,“note”,v)} placeholder=“Description…”/></div><div style={{marginBottom:16}}><FieldLabel>Frequency</FieldLabel><FieldSelect value={Number(p.frequencyDays)} onChange={v=>upd(p.id,“frequencyDays”,Number(v))} options={FREQ_OPTS}/></div><div style={{display:“flex”,gap:8,alignItems:“center”,flexWrap:“wrap”}}><PrimaryBtn onClick={()=>{upd(p.id,“lastDone”,today());setOpen(null);}}>✓ Done Today</PrimaryBtn><div style={{display:“flex”,alignItems:“center”,gap:6}}><span style={{fontSize:11,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”}}>or backfill:</span><input type=“date” value={p.lastDone} onChange={e=>upd(p.id,“lastDone”,e.target.value)} style={{fontSize:12,fontFamily:“var(–ff-ui)”,color:“var(–ink)”,background:“transparent”,border:“none”,borderBottom:“1px solid var(–line)”,outline:“none”,padding:“3px 0”}}/></div><button onClick={()=>del(p.id)} style={{marginLeft:“auto”,fontSize:11,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”,background:“none”,border:“none”,cursor:“pointer”}}>Remove</button></div></Card>}</div>);})}
+<SectionHeader title="Faith" subtitle="Spiritual practices · your rhythm" action={<Btn onClick={()=>setAdding(a=>!a)}>+ Add</Btn>}/>
+{adding&&<Card style={{marginBottom:20}}><FieldLabel>New Practice</FieldLabel><FieldInput value={draft.name} onChange={v=>setDraft(d=>({…d,name:v}))} placeholder="e.g. Lectio Divina" style={{marginBottom:12}}/><FieldInput value={draft.note} onChange={v=>setDraft(d=>({…d,note:v}))} placeholder="Short description" style={{marginBottom:14}}/><div style={{display:"flex",gap:8,alignItems:"center",marginBottom:16}}><FieldLabel>Frequency</FieldLabel><FieldSelect value={draft.frequencyDays} onChange={v=>setDraft(d=>({…d,frequencyDays:Number(v)}))} options={FREQ_OPTS}/></div><div style={{display:"flex",gap:8}}><PrimaryBtn onClick={add}>Save</PrimaryBtn><Btn onClick={()=>setAdding(false)}>Cancel</Btn></div></Card>}
+{sorted.map(p=>{const urg=faithUrgency(p);return(<div key={p.id}><div onClick={()=>setOpen(open===p.id?null:p.id)} style={{display:"flex",alignItems:"center",gap:14,padding:"12px 0",borderBottom:"1px solid var(–line)",cursor:"pointer"}}><div style={{width:3,alignSelf:"stretch",background:U_COLOR[urg],flexShrink:0,minHeight:40}}/><div style={{flex:1,minWidth:0}}><div style={{fontFamily:"var(–ff-display)",fontSize:19,fontWeight:500,color:"var(–ink)",lineHeight:1.1}}>{p.name}</div><div style={{fontSize:12,fontFamily:"var(–ff-ui)",color:"var(–ink3)",marginTop:2,fontWeight:300}}>{freqLabel(p.frequencyDays)}{p.note?` · ${p.note}`:""}</div></div><div style={{textAlign:"right",flexShrink:0}}><div style={{fontSize:11,fontFamily:"var(–ff-ui)",fontWeight:600,color:U_COLOR[urg]}}>{faithLabel(p)}</div>{p.lastDone&&<div style={{fontSize:10,fontFamily:"var(–ff-ui)",color:"var(–ink3)",marginTop:1}}>Last {fmt(p.lastDone)}</div>}</div></div>{open===p.id&&<Card style={{margin:"8px 0 16px"}}><div style={{marginBottom:12}}><FieldLabel>Practice</FieldLabel><FieldInput value={p.name} onChange={v=>upd(p.id,"name",v)} placeholder="Name"/></div><div style={{marginBottom:12}}><FieldLabel>Note</FieldLabel><FieldInput value={p.note} onChange={v=>upd(p.id,"note",v)} placeholder="Description…"/></div><div style={{marginBottom:16}}><FieldLabel>Frequency</FieldLabel><FieldSelect value={Number(p.frequencyDays)} onChange={v=>upd(p.id,"frequencyDays",Number(v))} options={FREQ_OPTS}/></div><div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}><PrimaryBtn onClick={()=>{upd(p.id,"lastDone",today());setOpen(null);}}>✓ Done Today</PrimaryBtn><div style={{display:"flex",alignItems:"center",gap:6}}><span style={{fontSize:11,fontFamily:"var(–ff-ui)",color:"var(–ink3)"}}>or backfill:</span><input type="date" value={p.lastDone} onChange={e=>upd(p.id,"lastDone",e.target.value)} style={{fontSize:12,fontFamily:"var(–ff-ui)",color:"var(–ink)",background:"transparent",border:"none",borderBottom:"1px solid var(–line)",outline:"none",padding:"3px 0"}}/></div><button onClick={()=>del(p.id)} style={{marginLeft:"auto",fontSize:11,fontFamily:"var(–ff-ui)",color:"var(–ink3)",background:"none",border:"none",cursor:"pointer"}}>Remove</button></div></Card>}</div>);})}
 {practices.length===0&&<Empty text="Add your first spiritual practice."/>}
 </div>
 );
@@ -164,39 +164,39 @@ return(
 function TasksSection(){
 const {data,setSynced}=useSync();
 const [tasks,setTasks]=useState(data.tasks);
-const [input,setInput]=useState(””);
-const [cat,setCat]=useState(“Personal”);
+const [input,setInput]=useState("");
+const [cat,setCat]=useState("Personal");
 const [showDone,setShowDone]=useState(false);
-useEffect(()=>{setSynced(“crm_tasks”,tasks);},[tasks]);
-const add=()=>{if(!input.trim())return;setTasks(tt=>[{id:uid(),text:input.trim(),cat,done:false,date:today()},…tt]);setInput(””);};
+useEffect(()=>{setSynced("crm_tasks",tasks);},[tasks]);
+const add=()=>{if(!input.trim())return;setTasks(tt=>[{id:uid(),text:input.trim(),cat,done:false,date:today()},…tt]);setInput("");};
 const toggle=(id)=>setTasks(tt=>tt.map(x=>x.id===id?{…x,done:!x.done}:x));
 const del=(id)=>setTasks(tt=>tt.filter(x=>x.id!==id));
 const pending=tasks.filter(t=>!t.done),done=tasks.filter(t=>t.done);
 return(
 <div>
 <SectionHeader title="Tasks" subtitle="Things to do · keep it short"/>
-<Card style={{marginBottom:20}}><div style={{display:“flex”,gap:10,alignItems:“center”,marginBottom:10}}><input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key===“Enter”&&add()} placeholder=“Add a task…” style={{flex:1,fontSize:15,fontFamily:“var(–ff-body)”,background:“transparent”,border:“none”,borderBottom:“1px solid var(–line)”,outline:“none”,padding:“4px 0”,color:“var(–ink)”}}/></div><div style={{display:“flex”,gap:8,alignItems:“center”}}><FieldSelect value={cat} onChange={setCat} options={TASK_CATS}/><PrimaryBtn onClick={add}>Add</PrimaryBtn></div></Card>
+<Card style={{marginBottom:20}}><div style={{display:"flex",gap:10,alignItems:"center",marginBottom:10}}><input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&add()} placeholder="Add a task…" style={{flex:1,fontSize:15,fontFamily:"var(–ff-body)",background:"transparent",border:"none",borderBottom:"1px solid var(–line)",outline:"none",padding:"4px 0",color:"var(–ink)"}}/></div><div style={{display:"flex",gap:8,alignItems:"center"}}><FieldSelect value={cat} onChange={setCat} options={TASK_CATS}/><PrimaryBtn onClick={add}>Add</PrimaryBtn></div></Card>
 {pending.length===0&&done.length===0&&<Empty text="Nothing on the list."/>}
-{TASK_CATS.map(c=>{const grp=pending.filter(t=>t.cat===c);if(!grp.length)return null;return(<div key={c} style={{marginBottom:20}}><GroupLabel>{c}</GroupLabel>{grp.map(t=><div key={t.id} style={{display:“flex”,alignItems:“center”,gap:12,padding:“10px 0”,borderBottom:“1px solid var(–line)”}}><div onClick={()=>toggle(t.id)} style={{width:18,height:18,border:“1.5px solid var(–ink2)”,flexShrink:0,cursor:“pointer”}}/><div style={{flex:1,fontSize:15,fontFamily:“var(–ff-body)”,color:“var(–ink)”,lineHeight:1.4}}>{t.text}</div><button onClick={()=>del(t.id)} style={{fontSize:14,color:“var(–ink3)”,background:“none”,border:“none”,cursor:“pointer”,flexShrink:0}}>×</button></div>)}</div>);})}
-{done.length>0&&<div><button onClick={()=>setShowDone(s=>!s)} style={{fontSize:10,fontFamily:“var(–ff-ui)”,fontWeight:600,letterSpacing:“0.15em”,textTransform:“uppercase”,color:“var(–ink3)”,background:“none”,border:“none”,cursor:“pointer”,padding:“8px 0”,display:“flex”,alignItems:“center”,gap:6}}>{showDone?“▲”:“▼”} Done ({done.length})</button>{showDone&&done.map(t=><div key={t.id} style={{display:“flex”,alignItems:“center”,gap:12,padding:“9px 0”,borderBottom:“1px solid var(–line)”,opacity:0.5}}><div onClick={()=>toggle(t.id)} style={{width:18,height:18,border:“1.5px solid var(–ink3)”,flexShrink:0,cursor:“pointer”,background:“var(–bg3)”,display:“flex”,alignItems:“center”,justifyContent:“center”}}><div style={{width:10,height:10,background:“var(–ink3)”}}/></div><div style={{flex:1,fontSize:14,fontFamily:“var(–ff-body)”,color:“var(–ink3)”,textDecoration:“line-through”,lineHeight:1.4}}>{t.text}</div><span style={{fontSize:10,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”}}>{t.cat}</span><button onClick={()=>del(t.id)} style={{fontSize:14,color:“var(–ink3)”,background:“none”,border:“none”,cursor:“pointer”,flexShrink:0}}>×</button></div>)}</div>}
+{TASK_CATS.map(c=>{const grp=pending.filter(t=>t.cat===c);if(!grp.length)return null;return(<div key={c} style={{marginBottom:20}}><GroupLabel>{c}</GroupLabel>{grp.map(t=><div key={t.id} style={{display:"flex",alignItems:"center",gap:12,padding:"10px 0",borderBottom:"1px solid var(–line)"}}><div onClick={()=>toggle(t.id)} style={{width:18,height:18,border:"1.5px solid var(–ink2)",flexShrink:0,cursor:"pointer"}}/><div style={{flex:1,fontSize:15,fontFamily:"var(–ff-body)",color:"var(–ink)",lineHeight:1.4}}>{t.text}</div><button onClick={()=>del(t.id)} style={{fontSize:14,color:"var(–ink3)",background:"none",border:"none",cursor:"pointer",flexShrink:0}}>×</button></div>)}</div>);})}
+{done.length>0&&<div><button onClick={()=>setShowDone(s=>!s)} style={{fontSize:10,fontFamily:"var(–ff-ui)",fontWeight:600,letterSpacing:"0.15em",textTransform:"uppercase",color:"var(–ink3)",background:"none",border:"none",cursor:"pointer",padding:"8px 0",display:"flex",alignItems:"center",gap:6}}>{showDone?"▲":"▼"} Done ({done.length})</button>{showDone&&done.map(t=><div key={t.id} style={{display:"flex",alignItems:"center",gap:12,padding:"9px 0",borderBottom:"1px solid var(–line)",opacity:0.5}}><div onClick={()=>toggle(t.id)} style={{width:18,height:18,border:"1.5px solid var(–ink3)",flexShrink:0,cursor:"pointer",background:"var(–bg3)",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{width:10,height:10,background:"var(–ink3)"}}/></div><div style={{flex:1,fontSize:14,fontFamily:"var(–ff-body)",color:"var(–ink3)",textDecoration:"line-through",lineHeight:1.4}}>{t.text}</div><span style={{fontSize:10,fontFamily:"var(–ff-ui)",color:"var(–ink3)"}}>{t.cat}</span><button onClick={()=>del(t.id)} style={{fontSize:14,color:"var(–ink3)",background:"none",border:"none",cursor:"pointer",flexShrink:0}}>×</button></div>)}</div>}
 </div>
 );
 }
 
 // ── REVIEW ──
-const REVIEW_QS=[“What went well this week?”,“What fell short — and why?”,“What matters most next week?”];
+const REVIEW_QS=["What went well this week?","What fell short — and why?","What matters most next week?"];
 function ReviewSection(){
 const {data,setSynced}=useSync();
 const [reviews,setReviews]=useState(data.reviews);
-const [draft,setDraft]=useState({date:today(),answers:[””,””,””]});
+const [draft,setDraft]=useState({date:today(),answers:["","",""]});
 const [viewing,setViewing]=useState(null);
-useEffect(()=>{setSynced(“crm_reviews”,reviews);},[reviews]);
-const saveReview=()=>{if(draft.answers.every(a=>!a.trim()))return;setReviews(r=>[{…draft,id:uid()},…r]);setDraft({date:today(),answers:[””,””,””]});};
+useEffect(()=>{setSynced("crm_reviews",reviews);},[reviews]);
+const saveReview=()=>{if(draft.answers.every(a=>!a.trim()))return;setReviews(r=>[{…draft,id:uid()},…r]);setDraft({date:today(),answers:["","",""]});};
 return(
 <div>
 <SectionHeader title="Review" subtitle="Sunday ritual · five minutes"/>
-<Card style={{marginBottom:24}}>{REVIEW_QS.map((q,i)=><div key={i} style={{marginBottom:18}}><FieldLabel>{q}</FieldLabel><FieldArea value={draft.answers[i]} onChange={v=>setDraft(d=>{const a=[…d.answers];a[i]=v;return{…d,answers:a};})} placeholder=”…” rows={2}/></div>)}<PrimaryBtn onClick={saveReview}>Save Review</PrimaryBtn></Card>
-{reviews.length>0&&<div><GroupLabel>Past Reviews</GroupLabel>{reviews.map(r=><div key={r.id}><div onClick={()=>setViewing(viewing===r.id?null:r.id)} style={{display:“flex”,justifyContent:“space-between”,alignItems:“center”,padding:“11px 0”,borderBottom:“1px solid var(–line)”,cursor:“pointer”}}><div style={{fontFamily:“var(–ff-display)”,fontSize:17,fontWeight:500,color:“var(–ink)”}}>Week of {fmt(r.date)}</div><div style={{fontSize:11,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”}}>{viewing===r.id?“▲”:“▼”}</div></div>{viewing===r.id&&<Card style={{margin:“8px 0 14px”}}>{REVIEW_QS.map((q,i)=><div key={i} style={{marginBottom:12}}><FieldLabel>{q}</FieldLabel><div style={{fontSize:15,fontFamily:“var(–ff-body)”,color:“var(–ink)”,lineHeight:1.6}}>{r.answers[i]||”—”}</div></div>)}</Card>}</div>)}</div>}
+<Card style={{marginBottom:24}}>{REVIEW_QS.map((q,i)=><div key={i} style={{marginBottom:18}}><FieldLabel>{q}</FieldLabel><FieldArea value={draft.answers[i]} onChange={v=>setDraft(d=>{const a=[…d.answers];a[i]=v;return{…d,answers:a};})} placeholder="…" rows={2}/></div>)}<PrimaryBtn onClick={saveReview}>Save Review</PrimaryBtn></Card>
+{reviews.length>0&&<div><GroupLabel>Past Reviews</GroupLabel>{reviews.map(r=><div key={r.id}><div onClick={()=>setViewing(viewing===r.id?null:r.id)} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"11px 0",borderBottom:"1px solid var(–line)",cursor:"pointer"}}><div style={{fontFamily:"var(–ff-display)",fontSize:17,fontWeight:500,color:"var(–ink)"}}>Week of {fmt(r.date)}</div><div style={{fontSize:11,fontFamily:"var(–ff-ui)",color:"var(–ink3)"}}>{viewing===r.id?"▲":"▼"}</div></div>{viewing===r.id&&<Card style={{margin:"8px 0 14px"}}>{REVIEW_QS.map((q,i)=><div key={i} style={{marginBottom:12}}><FieldLabel>{q}</FieldLabel><div style={{fontSize:15,fontFamily:"var(–ff-body)",color:"var(–ink)",lineHeight:1.6}}>{r.answers[i]||"—"}</div></div>)}</Card>}</div>)}</div>}
 </div>
 );
 }
@@ -205,86 +205,86 @@ return(
 function SomedaySection(){
 const {data,setSynced}=useSync();
 const [items,setItems]=useState(data.someday);
-const [input,setInput]=useState(””);
-useEffect(()=>{setSynced(“crm_someday”,items);},[items]);
-const add=()=>{if(!input.trim())return;setItems(ii=>[{id:uid(),text:input.trim(),date:today()},…ii]);setInput(””);};
+const [input,setInput]=useState("");
+useEffect(()=>{setSynced("crm_someday",items);},[items]);
+const add=()=>{if(!input.trim())return;setItems(ii=>[{id:uid(),text:input.trim(),date:today()},…ii]);setInput("");};
 return(
 <div>
 <SectionHeader title="Someday" subtitle="Ideas you don't want to lose"/>
-<Card style={{marginBottom:20}}><div style={{display:“flex”,gap:10,alignItems:“center”}}><input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key===“Enter”&&add()} placeholder=“Capture a thought…” style={{flex:1,fontSize:15,fontFamily:“var(–ff-body)”,background:“transparent”,border:“none”,borderBottom:“1px solid var(–line)”,outline:“none”,padding:“4px 0”,color:“var(–ink)”}}/><PrimaryBtn onClick={add}>Add</PrimaryBtn></div></Card>
+<Card style={{marginBottom:20}}><div style={{display:"flex",gap:10,alignItems:"center"}}><input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&add()} placeholder="Capture a thought…" style={{flex:1,fontSize:15,fontFamily:"var(–ff-body)",background:"transparent",border:"none",borderBottom:"1px solid var(–line)",outline:"none",padding:"4px 0",color:"var(–ink)"}}/><PrimaryBtn onClick={add}>Add</PrimaryBtn></div></Card>
 {items.length===0&&<Empty text="Nothing here yet."/>}
-{items.map(item=><div key={item.id} style={{display:“flex”,alignItems:“flex-start”,gap:12,padding:“11px 0”,borderBottom:“1px solid var(–line)”}}><div style={{width:4,height:4,background:“var(–gold)”,marginTop:9,flexShrink:0}}/><div style={{flex:1,fontSize:15,fontFamily:“var(–ff-body)”,color:“var(–ink)”,lineHeight:1.55}}>{item.text}</div><div style={{fontSize:10,fontFamily:“var(–ff-ui)”,color:“var(–ink3)”,flexShrink:0,marginTop:4}}>{fmt(item.date)}</div><button onClick={()=>setItems(ii=>ii.filter(x=>x.id!==item.id))} style={{fontSize:16,color:“var(–ink3)”,background:“none”,border:“none”,cursor:“pointer”,flexShrink:0,lineHeight:1}}>×</button></div>)}
+{items.map(item=><div key={item.id} style={{display:"flex",alignItems:"flex-start",gap:12,padding:"11px 0",borderBottom:"1px solid var(–line)"}}><div style={{width:4,height:4,background:"var(–gold)",marginTop:9,flexShrink:0}}/><div style={{flex:1,fontSize:15,fontFamily:"var(–ff-body)",color:"var(–ink)",lineHeight:1.55}}>{item.text}</div><div style={{fontSize:10,fontFamily:"var(–ff-ui)",color:"var(–ink3)",flexShrink:0,marginTop:4}}>{fmt(item.date)}</div><button onClick={()=>setItems(ii=>ii.filter(x=>x.id!==item.id))} style={{fontSize:16,color:"var(–ink3)",background:"none",border:"none",cursor:"pointer",flexShrink:0,lineHeight:1}}>×</button></div>)}
 </div>
 );
 }
 
 // ── APP SHELL ──
-const TABS=[{id:“people”,label:“People”},{id:“goals”,label:“Goals”},{id:“faith”,label:“Faith”},{id:“tasks”,label:“Tasks”},{id:“review”,label:“Review”},{id:“someday”,label:“Someday”}];
+const TABS=[{id:"people",label:"People"},{id:"goals",label:"Goals"},{id:"faith",label:"Faith"},{id:"tasks",label:"Tasks"},{id:"review",label:"Review"},{id:"someday",label:"Someday"}];
 
 function App(){
-const [tab,setTab]=useState(“people”);
-const [syncStatus,setSyncStatus]=useState(“syncing”);
+const [tab,setTab]=useState("people");
+const [syncStatus,setSyncStatus]=useState("syncing");
 const [seedData,setSeedData]=useState(null);
 
 useEffect(()=>{
 let cancelled=false;
 const fallback={
-people: JSON.parse(localStorage.getItem(“crm_people”)||“null”)||SEED_PEOPLE,
-goals:  JSON.parse(localStorage.getItem(“crm_goals”)||“null”)||SEED_GOALS,
-vision: JSON.parse(localStorage.getItem(“crm_vision”)||“null”)||SEED_VISION,
-faith:  JSON.parse(localStorage.getItem(“crm_faith”)||“null”)||SEED_FAITH,
-tasks:  JSON.parse(localStorage.getItem(“crm_tasks”)||“null”)||SEED_TASKS,
-reviews:JSON.parse(localStorage.getItem(“crm_reviews”)||“null”)||SEED_REVIEW,
-someday:JSON.parse(localStorage.getItem(“crm_someday”)||“null”)||SEED_SOMEDAY,
+people: JSON.parse(localStorage.getItem("crm_people")||"null")||SEED_PEOPLE,
+goals:  JSON.parse(localStorage.getItem("crm_goals")||"null")||SEED_GOALS,
+vision: JSON.parse(localStorage.getItem("crm_vision")||"null")||SEED_VISION,
+faith:  JSON.parse(localStorage.getItem("crm_faith")||"null")||SEED_FAITH,
+tasks:  JSON.parse(localStorage.getItem("crm_tasks")||"null")||SEED_TASKS,
+reviews:JSON.parse(localStorage.getItem("crm_reviews")||"null")||SEED_REVIEW,
+someday:JSON.parse(localStorage.getItem("crm_someday")||"null")||SEED_SOMEDAY,
 };
-const timer=setTimeout(()=>{if(!cancelled&&!seedData){setSeedData(fallback);setSyncStatus(“offline”);}},5000);
+const timer=setTimeout(()=>{if(!cancelled&&!seedData){setSeedData(fallback);setSyncStatus("offline");}},5000);
 (async()=>{
 try{
-const [people,goals,vision,faith,tasks,reviews,someday]=await Promise.all([sbGet(“crm_people”,SEED_PEOPLE),sbGet(“crm_goals”,SEED_GOALS),sbGet(“crm_vision”,SEED_VISION),sbGet(“crm_faith”,SEED_FAITH),sbGet(“crm_tasks”,SEED_TASKS),sbGet(“crm_reviews”,SEED_REVIEW),sbGet(“crm_someday”,SEED_SOMEDAY)]);
-if(!cancelled){setSeedData({people,goals,vision,faith,tasks,reviews,someday});setSyncStatus(“ok”);}
-}catch{if(!cancelled){setSeedData(fallback);setSyncStatus(“offline”);}}
+const [people,goals,vision,faith,tasks,reviews,someday]=await Promise.all([sbGet("crm_people",SEED_PEOPLE),sbGet("crm_goals",SEED_GOALS),sbGet("crm_vision",SEED_VISION),sbGet("crm_faith",SEED_FAITH),sbGet("crm_tasks",SEED_TASKS),sbGet("crm_reviews",SEED_REVIEW),sbGet("crm_someday",SEED_SOMEDAY)]);
+if(!cancelled){setSeedData({people,goals,vision,faith,tasks,reviews,someday});setSyncStatus("ok");}
+}catch{if(!cancelled){setSeedData(fallback);setSyncStatus("offline");}}
 })();
 return()=>{cancelled=true;clearTimeout(timer);};
 },[]);
 
 const setSynced=(key,val)=>sbSet(key,val);
 
-if(!seedData)return(<><style>{G}</style><div style={{minHeight:“100vh”,background:“var(–bg)”,display:“flex”,alignItems:“center”,justifyContent:“center”,flexDirection:“column”,gap:16}}><div style={{fontFamily:“var(–ff-display)”,fontSize:28,fontWeight:500,color:“var(–ink)”,letterSpacing:”-0.01em”}}>Life CRM</div><div style={{fontSize:11,fontFamily:“var(–ff-ui)”,letterSpacing:“0.15em”,textTransform:“uppercase”,color:“var(–ink3)”}}>Syncing…</div></div></>);
+if(!seedData)return(<><style>{G}</style><div style={{minHeight:"100vh",background:"var(–bg)",display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:16}}><div style={{fontFamily:"var(–ff-display)",fontSize:28,fontWeight:500,color:"var(–ink)",letterSpacing:"-0.01em"}}>Life CRM</div><div style={{fontSize:11,fontFamily:"var(–ff-ui)",letterSpacing:"0.15em",textTransform:"uppercase",color:"var(–ink3)"}}>Syncing…</div></div></>);
 
 return(
 <SyncCtx.Provider value={{data:seedData,setSynced}}>
 <style>{G}</style>
-<div style={{minHeight:“100vh”,background:“var(–bg)”,display:“flex”,flexDirection:“column”}}>
-<div style={{background:“var(–ink)”,padding:“22px 24px 16px”}}>
-<div style={{display:“flex”,justifyContent:“space-between”,alignItems:“flex-start”}}>
+<div style={{minHeight:"100vh",background:"var(–bg)",display:"flex",flexDirection:"column"}}>
+<div style={{background:"var(–ink)",padding:"22px 24px 16px"}}>
+<div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
 <div>
-<div style={{fontFamily:“var(–ff-ui)”,fontSize:10,fontWeight:600,letterSpacing:“0.22em”,textTransform:“uppercase”,color:“var(–gold2)”,marginBottom:4}}>Dusty Calhoun</div>
-<div style={{fontFamily:“var(–ff-display)”,fontSize:30,fontWeight:500,color:“var(–bg)”,letterSpacing:”-0.01em”,lineHeight:1}}>Life CRM</div>
+<div style={{fontFamily:"var(–ff-ui)",fontSize:10,fontWeight:600,letterSpacing:"0.22em",textTransform:"uppercase",color:"var(–gold2)",marginBottom:4}}>Dusty Calhoun</div>
+<div style={{fontFamily:"var(–ff-display)",fontSize:30,fontWeight:500,color:"var(–bg)",letterSpacing:"-0.01em",lineHeight:1}}>Life CRM</div>
 </div>
-<div style={{display:“flex”,alignItems:“center”,gap:5,marginTop:6}}>
-<div style={{width:6,height:6,borderRadius:“50%”,background:syncStatus===“ok”?“var(–green)”:syncStatus===“offline”?“var(–amber)”:“var(–gold2)”}}/>
-<span style={{fontSize:9,fontFamily:“var(–ff-ui)”,letterSpacing:“0.12em”,textTransform:“uppercase”,color:syncStatus===“ok”?“var(–green)”:syncStatus===“offline”?“var(–amber)”:“var(–gold2)”}}>{syncStatus===“ok”?“Synced”:syncStatus===“offline”?“Offline”:“Syncing”}</span>
+<div style={{display:"flex",alignItems:"center",gap:5,marginTop:6}}>
+<div style={{width:6,height:6,borderRadius:"50%",background:syncStatus==="ok"?"var(–green)":syncStatus==="offline"?"var(–amber)":"var(–gold2)"}}/>
+<span style={{fontSize:9,fontFamily:"var(–ff-ui)",letterSpacing:"0.12em",textTransform:"uppercase",color:syncStatus==="ok"?"var(–green)":syncStatus==="offline"?"var(–amber)":"var(–gold2)"}}>{syncStatus==="ok"?"Synced":syncStatus==="offline"?"Offline":"Syncing"}</span>
 </div>
 </div>
 </div>
-<div style={{display:“flex”,background:“var(–bg2)”,borderBottom:“2px solid var(–ink)”,overflowX:“auto”}}>
-{TABS.map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={{flex:1,minWidth:64,padding:“11px 4px”,fontFamily:“var(–ff-ui)”,fontSize:10,fontWeight:tab===t.id?600:400,letterSpacing:“0.1em”,textTransform:“uppercase”,color:tab===t.id?“var(–ink)”:“var(–ink3)”,background:“none”,borderBottom:tab===t.id?“2px solid var(–gold)”:“2px solid transparent”,marginBottom:-2,cursor:“pointer”}}>{t.label}</button>)}
+<div style={{display:"flex",background:"var(–bg2)",borderBottom:"2px solid var(–ink)",overflowX:"auto"}}>
+{TABS.map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={{flex:1,minWidth:64,padding:"11px 4px",fontFamily:"var(–ff-ui)",fontSize:10,fontWeight:tab===t.id?600:400,letterSpacing:"0.1em",textTransform:"uppercase",color:tab===t.id?"var(–ink)":"var(–ink3)",background:"none",borderBottom:tab===t.id?"2px solid var(–gold)":"2px solid transparent",marginBottom:-2,cursor:"pointer"}}>{t.label}</button>)}
 </div>
-<div style={{flex:1,padding:“28px 20px 56px”,maxWidth:640,width:“100%”,margin:“0 auto”}}>
-{tab===“people”&&<PeopleSection/>}
-{tab===“goals”&&<GoalsSection/>}
-{tab===“faith”&&<FaithSection/>}
-{tab===“tasks”&&<TasksSection/>}
-{tab===“review”&&<ReviewSection/>}
-{tab===“someday”&&<SomedaySection/>}
+<div style={{flex:1,padding:"28px 20px 56px",maxWidth:640,width:"100%",margin:"0 auto"}}>
+{tab==="people"&&<PeopleSection/>}
+{tab==="goals"&&<GoalsSection/>}
+{tab==="faith"&&<FaithSection/>}
+{tab==="tasks"&&<TasksSection/>}
+{tab==="review"&&<ReviewSection/>}
+{tab==="someday"&&<SomedaySection/>}
 </div>
-<div style={{textAlign:“center”,padding:“14px”,borderTop:“1px solid var(–line)”,fontSize:10,fontFamily:“var(–ff-ui)”,letterSpacing:“0.18em”,textTransform:“uppercase”,color:“var(–ink3)”}}>Ora et Labora</div>
+<div style={{textAlign:"center",padding:"14px",borderTop:"1px solid var(–line)",fontSize:10,fontFamily:"var(–ff-ui)",letterSpacing:"0.18em",textTransform:"uppercase",color:"var(–ink3)"}}>Ora et Labora</div>
 </div>
 </SyncCtx.Provider>
 );
 }
 
-ReactDOM.createRoot(document.getElementById(“root”)).render(<App/>);
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
 
 </body>
