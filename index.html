@@ -86,7 +86,7 @@ const Empty=({text})=><div style={{padding:"40px 0",textAlign:"center",fontFamil
 // ── PEOPLE ──
 function PeopleSection(){
 const {data,setSynced}=useSync();
-const [people,setPeople]=useState(data.people);
+const [people,setPeople]=useState(()=>{try{const v=localStorage.getItem('crm_people');return v?JSON.parse(v):data.people;}catch{return data.people;}});
 const [open,setOpen]=useState(null);
 const [adding,setAdding]=useState(false);
 const [draft,setDraft]=useState({name:"",tier:"Close",lastContact:"",nextFollowUp:"",note:""});
@@ -109,8 +109,8 @@ return(
 function GoalsSection(){
 const {data,setSynced}=useSync();
 const [subtab,setSubtab]=useState("active");
-const [goals,setGoals]=useState(data.goals);
-const [vision,setVision]=useState(data.vision);
+const [goals,setGoals]=useState(()=>{try{const v=localStorage.getItem('crm_goals');return v?JSON.parse(v):data.goals;}catch{return data.goals;}});
+const [vision,setVision]=useState(()=>{try{const v=localStorage.getItem('crm_vision');return v?JSON.parse(v):data.vision;}catch{return data.vision;}});
 const [open,setOpen]=useState(null);
 const [planOpen,setPlanOpen]=useState(null);
 const [adding,setAdding]=useState(false);
@@ -140,7 +140,7 @@ return(
 // ── FAITH ──
 function FaithSection(){
 const {data,setSynced}=useSync();
-const [practices,setPractices]=useState(data.faith);
+const [practices,setPractices]=useState(()=>{try{const v=localStorage.getItem('crm_faith');return v?JSON.parse(v):data.faith;}catch{return data.faith;}});
 const [open,setOpen]=useState(null);
 const [adding,setAdding]=useState(false);
 const [draft,setDraft]=useState({name:"",frequencyDays:7,lastDone:"",note:""});
@@ -163,7 +163,7 @@ return(
 // ── TASKS ──
 function TasksSection(){
 const {data,setSynced}=useSync();
-const [tasks,setTasks]=useState(data.tasks);
+const [tasks,setTasks]=useState(()=>{try{const v=localStorage.getItem('crm_tasks');return v?JSON.parse(v):data.tasks;}catch{return data.tasks;}});
 const [input,setInput]=useState("");
 const [cat,setCat]=useState("Personal");
 const [showDone,setShowDone]=useState(false);
@@ -187,7 +187,7 @@ return(
 const REVIEW_QS=["What went well this week?","What fell short -- and why?","What matters most next week?"];
 function ReviewSection(){
 const {data,setSynced}=useSync();
-const [reviews,setReviews]=useState(data.reviews);
+const [reviews,setReviews]=useState(()=>{try{const v=localStorage.getItem('crm_reviews');return v?JSON.parse(v):data.reviews;}catch{return data.reviews;}});
 const [draft,setDraft]=useState({date:today(),answers:["","",""]});
 const [viewing,setViewing]=useState(null);
 useEffect(()=>{setSynced("crm_reviews",reviews);},[reviews]);
@@ -204,7 +204,7 @@ return(
 // ── SOMEDAY ──
 function SomedaySection(){
 const {data,setSynced}=useSync();
-const [items,setItems]=useState(data.someday);
+const [items,setItems]=useState(()=>{try{const v=localStorage.getItem('crm_someday');return v?JSON.parse(v):data.someday;}catch{return data.someday;}});
 const [input,setInput]=useState("");
 useEffect(()=>{setSynced("crm_someday",items);},[items]);
 const add=()=>{if(!input.trim())return;setItems(ii=>[{id:uid(),text:input.trim(),date:today()},...ii]);setInput("");};
